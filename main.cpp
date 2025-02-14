@@ -66,9 +66,9 @@ std::string getReq(int day){
   req.version(11); // HTTP/1.1
 
   // Устанавливаем заголовки
-  req.set(http::field::host, "msapi.top-academy.ru");
-  req.set(http::field::authorization, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXNhcGkuaXRzdGVwLm9yZyIsImlhdCI6MTczOTQzMzEyMCwiYXVkIjoxLCJleHAiOjE3Mzk0NTQ3MjAsImFwaUFwcGxpY2F0aW9uSWQiOjEsImFwaVVzZXJUeXBlSWQiOjEsInVzZXJJZCI6NDk3OTIsImlkQ2l0eSI6MTE2fQ.YoY9KTKJUAS51zS79tyJFKpArpvtx9VUTGHCCC6J1nE");
-  req.set(http::field::referer, "https://journal.top-academy.ru/");
+  req.set(http::field::host, "123");
+  req.set(http::field::authorization, "Bearer ");
+  req.set(http::field::referer, "123/");
   req.set(http::field::accept_language, "ru_RU, ru");
   req.set(http::field::user_agent, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36");
   req.set(http::field::accept, "application/json, text/plain, */*");
