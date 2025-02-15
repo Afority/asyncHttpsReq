@@ -4,6 +4,7 @@
 #include <netdb.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <algorithm>
 
 struct Network{
     Crypto crypto;
@@ -31,7 +32,7 @@ struct Network{
             return host;
         }
         bool isActual(){
-            if (std::time(nullptr) - whenItWasReceived > 3600 /* 1 час */){
+            if (std::time(nullptr) - whenItWasReceived > 3600 /* 1 час */ || host){
 #ifdef NDEBUG
                 std::cout << "DEBUG: срок действия кеша истек";
 #endif
@@ -80,6 +81,12 @@ struct Network{
                 fcntl(sock, F_SETFL, flags | O_NONBLOCK);
             }
 
+            if (!network.crypto.ctx) {
+                std::cerr << "SSL context is not initialized." << std::endl;
+                close(sock);
+                return;
+            }
+
             ssl = SSL_new(network.crypto.ctx);
             if (!ssl){
               std::cerr << "Error creating SSL object." << std::endl;
@@ -93,11 +100,8 @@ struct Network{
             server_addr.sin_port = htons(443);
 
             ip = network.resolveIp(domain);
-            // std::cout << ip.get()->h_addr_list << std::endl;
-            if (!ip.get()->h_addr_list[0]){
-                std::cerr << "!ip.get()->h_addr_list[0]" << std::endl;
-            }
-            memcpy(&server_addr.sin_addr.s_addr, ip.get()->h_addr_list[0], ip.get()->h_length);
+
+            memcpy(&server_addr.sin_addr.s_addr, ip.get()->h_addr_list[0], sizeof server_addr.sin_addr.s_addr);
         }
 
     };
