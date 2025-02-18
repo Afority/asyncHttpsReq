@@ -4,6 +4,7 @@
 #include <netdb.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <utility>
 #include <algorithm>
 
 struct Network{
@@ -33,12 +34,12 @@ struct Network{
         }
         bool isActual(){
             if (std::time(nullptr) - whenItWasReceived > 3600 /* 1 час */ || host){
-#ifdef NDEBUG
+#ifndef NDEBUG
                 std::cout << "DEBUG: срок действия кеша истек";
 #endif
                 return false;
             }
-#ifdef NDEBUG
+#ifndef NDEBUG
             std::cout << "DEBUG: срок действия кеша не истек";
 #endif
             return true;
