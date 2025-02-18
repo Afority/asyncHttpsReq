@@ -304,7 +304,7 @@ std::string getHeaderSchedule(const char* accessToken, int day){
 
 void getSchedule(){
   // Получаем bearer токен
-  auto headers = getHeaderAuth("Shayh_up14", "18wt7U4t");
+  auto headers = getHeaderAuth("", "");
   const char* domain = "msapi.top-academy.ru";
 
   HttpData authResponse = get(headers, domain);
